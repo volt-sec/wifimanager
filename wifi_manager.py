@@ -2,7 +2,7 @@ import network
 import socket
 import time
 import ure
-import wifimgr_utils
+import wifi_manager_utils
 
 class WifiManager:
 
@@ -196,8 +196,8 @@ class WifiManager:
             return False
         # version 1.9 compatibility
         try:
-            ssid = wifimgr_utils.unquote(match.group(1).decode("utf-8"))
-            password = wifimgr_utils.unquote(match.group(2).decode("utf-8"))
+            ssid = wifi_manager_utils.unquote(match.group(1).decode("utf-8"))
+            password = wifi_manager_utils.unquote(match.group(2).decode("utf-8"))
         except Exception:
             # Not both groups of ssid and password captured
             self.send_response(client, "SSID and/or password not provided", status_code=400)
