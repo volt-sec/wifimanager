@@ -175,12 +175,12 @@ class WifiManager:
                 </h2>
                 <ul>
                     <li>
-                        Original code from <a href="https://github.com/cpopp/MicroPythonSamples"
-                            target="_blank" rel="noopener">cpopp/MicroPythonSamples</a>.
+                        Original code from <a href="https://github.com/tayfunulu/WiFiManager"
+                            target="_blank" rel="noopener">tayfunulu/WiFiManager</a>.
                     </li>
                     <li>
-                        This code available at <a href="https://github.com/tayfunulu/WiFiManager"
-                            target="_blank" rel="noopener">tayfunulu/WiFiManager</a>.
+                        This code available at <a href="https://github.com/volt-sec/wifimanager"
+                            target="_blank" rel="noopener">volt-sec/wifimanager</a>.
                     </li>
                 </ul>
             </html>
