@@ -1,7 +1,9 @@
-import wifimgr
+import wifi_manager
 
+wifi_mgr = wifi_manager.WifiManager()
 
-wlan = wifimgr.get_connection()
+wlan = wifi_mgr.get_connection()
+
 if wlan is None:
     print("Could not initialize the network connection.")
     while True:
