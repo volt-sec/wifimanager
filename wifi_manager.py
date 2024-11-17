@@ -6,19 +6,19 @@ import wifi_manager_utils
 
 class WifiManager:
 
-    AP_SSID = "wifimanager"
-    AP_PASSWORD = "wifimanager"
     AP_AUTHMODE = 3  # WPA2
 
     NETWORK_PROFILES = 'wifi.dat'
 
-    def __init__(self):
+    def __init__(self, ssid="wifimanager", password="wifimanager"):
         """
         @brief WifiManager constructor
         """
         self._wlan_ap = network.WLAN(network.AP_IF)
         self._wlan_sta = network.WLAN(network.STA_IF)
         self._server_socket = None
+        self._ssid = ssid
+        self._password = password
 
     def get_connection(self):
         """
@@ -214,13 +214,13 @@ class WifiManager:
                         <br><br>
                         <h1 style="color: #5e9ca0; text-align: center;">
                             <span style="color: #ff0000;">
-                                ESP successfully connected to WiFi network %(ssid)s.
+                                %(own_ssid)s successfully connected to WiFi network %(ssid)s.
                             </span>
                         </h1>
                         <br><br>
                     </center>
                 </html>
-            """ % dict(ssid=ssid)
+            """ % dict(own_ssid=self._ssid, ssid=ssid)
             self.send_response(client, response)
             time.sleep(1)
             self._wlan_ap.active(False)
@@ -240,7 +240,7 @@ class WifiManager:
                     <center>
                         <h1 style="color: #5e9ca0; text-align: center;">
                             <span style="color: #ff0000;">
-                                ESP could not connect to WiFi network %(ssid)s.
+                                %(own_ssid)s could not connect to WiFi network %(ssid)s.
                             </span>
                         </h1>
                         <br><br>
@@ -249,7 +249,7 @@ class WifiManager:
                         </form>
                     </center>
                 </html>
-            """ % dict(ssid=ssid)
+            """ % dict(own_ssid=self._ssid, ssid=ssid)
             self.send_response(client, response)
             return False
 
@@ -271,14 +271,14 @@ class WifiManager:
         self._wlan_sta.active(True)
         self._wlan_ap.active(True)
 
-        self._wlan_ap.config(essid=self.AP_SSID, password=self.AP_PASSWORD, authmode=self.AP_AUTHMODE)
+        self._wlan_ap.config(essid=self._ssid, password=self._password, authmode=self.AP_AUTHMODE)
 
         self._server_socket = socket.socket()
         self._server_socket.bind(addr)
         self._server_socket.listen(1)
 
-        print('Connect to WiFi ssid ' + self.AP_SSID + ', default password: ' + self.AP_PASSWORD)
-        print('and access the ESP via your favorite web browser at 192.168.4.1.')
+        print('Connect to WiFi ssid ' + self._ssid + ', default password: ' + self._password)
+        print('and access the ' + self._ssid + ' via your favorite web browser at 192.168.4.1.')
         print('Listening on:', addr)
 
         while True:
